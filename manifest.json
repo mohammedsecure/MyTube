@@ -1,10 +1,17 @@
 {
+  "id": "/MyTube/",
   "name": "MyTube",
   "short_name": "MyTube",
+  "description": "مشغل يوتيوب مينيمال صوتي بدون تشتيت مع شاشة سوداء موفرة للطاقة",
+  "lang": "ar",
+  "dir": "rtl",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#000000",
+  "categories": ["music", "entertainment", "utilities"],
   "icons": [
     {
       "src": "icon-192.png",
