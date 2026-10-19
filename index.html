@@ -22,7 +22,6 @@
       user-select: none;
     }
 
-    /* الشريط العلوي */
     header {
       padding: 12px 16px;
       background: #08080a;
@@ -66,7 +65,6 @@
       flex-shrink: 0;
     }
 
-    /* منطقة المشغل المصغر */
     main {
       flex: 1;
       display: flex;
@@ -115,7 +113,6 @@
       text-overflow: ellipsis;
     }
 
-    /* أزرار الإجراءات في الواجهة الرئيسية */
     .main-actions-row {
       margin-top: 18px;
       display: flex;
@@ -146,12 +143,9 @@
       align-items: center;
       gap: 6px;
     }
-    .btn-timer-pill.active {
-      color: #fff;
-      background: #1c1c28;
-    }
+    .btn-timer-pill.active { color: #fff; background: #1c1c28; }
 
-    /* شريط التقدم الزمني النحيف والمينيمال */
+    /* شريط التقدم النحيف */
     .progress-bar-wrap {
       width: 100%;
       padding: 0 20px 8px;
@@ -170,9 +164,7 @@
       transition: height 0.15s ease;
     }
     .progress-bar-wrap:hover .progress-track,
-    .progress-bar-wrap:active .progress-track {
-      height: 4px;
-    }
+    .progress-bar-wrap:active .progress-track { height: 4px; }
     .progress-fill {
       height: 100%;
       width: 0%;
@@ -189,7 +181,6 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* القوائم السفلية */
     section {
       height: 46%;
       background: #070709;
@@ -283,100 +274,7 @@
       cursor: pointer;
     }
 
-    /* قائمة الإعدادات */
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(4px);
-      z-index: 10000;
-      display: none;
-      justify-content: flex-start;
-    }
-    .drawer-card {
-      width: 280px;
-      height: 100%;
-      background: #0c0c10;
-      display: flex;
-      flex-direction: column;
-      padding: 24px 20px;
-      gap: 16px;
-    }
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #1a1a22;
-    }
-    .drawer-item {
-      padding: 12px 14px;
-      background: #14141a;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #ccc;
-      cursor: pointer;
-    }
-    .drawer-item.danger { color: #f87171; }
-
-    /* النوافذ والمودال */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(4px);
-      z-index: 1000000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-card {
-      background: #121218;
-      border-radius: 18px;
-      width: 100%;
-      max-width: 320px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .modal-card h4 { font-size: 14px; font-weight: 500; color: #fff; }
-    .modal-card input { width: 100%; }
-    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
-    .btn-dim {
-      background: #1c1c24;
-      border: none;
-      color: #888;
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .sleep-options {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-    .btn-sleep-opt {
-      background: #1c1c24;
-      border: none;
-      color: #ccc;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .btn-sleep-opt.active { background: #3b3b4f; color: #fff; }
-
-    /* الشاشة السوداء بالكامل */
+    /* الشاشة السوداء بالكامل مع التلاشي التلقائي */
     #zenOverlay {
       position: fixed;
       inset: 0;
@@ -388,7 +286,19 @@
       flex-direction: column;
       justify-content: space-between;
       padding: 36px 24px;
+      cursor: pointer;
     }
+    .zen-header, .zen-controls {
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+    /* عند الخمول: إخفاء عناصر التحكم لتصبح الشاشة سوداء تماماً */
+    #zenOverlay.idle .zen-header,
+    #zenOverlay.idle .zen-controls {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     .zen-controls {
       direction: ltr !important;
       display: flex;
@@ -440,23 +350,112 @@
       cursor: pointer;
       padding: 8px;
     }
-    .btn-action:hover { color: #fff; }
+
+    /* درج الإعدادات */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: none;
+      justify-content: flex-start;
+    }
+    .drawer-card {
+      width: 280px;
+      height: 100%;
+      background: #0c0c10;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 20px;
+      gap: 16px;
+    }
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1a1a22;
+    }
+    .drawer-item {
+      padding: 12px 14px;
+      background: #14141a;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #ccc;
+      cursor: pointer;
+    }
+    .drawer-item.danger { color: #f87171; }
+
+    /* المودال */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      z-index: 1000000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-card {
+      background: #121218;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 320px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-card h4 { font-size: 14px; font-weight: 500; color: #fff; }
+    .modal-card input { width: 100%; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+    .btn-dim {
+      background: #1c1c24;
+      border: none;
+      color: #888;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .sleep-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .btn-sleep-opt {
+      background: #1c1c24;
+      border: none;
+      color: #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .btn-sleep-opt.active { background: #3b3b4f; color: #fff; }
 
     svg { width: 18px; height: 18px; fill: currentColor; }
   </style>
 </head>
 <body>
 
-  <!-- شريط الإدخال وأيقونة الإعدادات -->
   <header>
     <button onclick="openDrawer()" class="icon-btn-header" title="الإعدادات">
       <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
     </button>
     <input id="urlInput" type="text" style="flex:1" placeholder="الصق رابط فيديو أو سلسلة...">
-    <button id="addBtn" onclick="handleIncomingUrl()" class="btn-action-main">إضافة</button>
+    <button id="addBtn" onclick="handleIncomingUrl(true)" class="btn-action-main">إضافة</button>
   </header>
 
-  <!-- المشغل المصغر -->
   <main>
     <div class="player-card">
       <div class="video-box">
@@ -468,7 +467,6 @@
       <div id="nowPlayingText" class="track-title">اضغط للتشغيل</div>
     </div>
 
-    <!-- أزرار الواجهة الرئيسية -->
     <div class="main-actions-row">
       <button onclick="enableZenMode()" class="btn-zen-pill">
         <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
@@ -482,7 +480,6 @@
     </div>
   </main>
 
-  <!-- شريط التقدم الزمني النحيف فوق القوائم مباشرة -->
   <div class="progress-bar-wrap" onclick="seekByClick(event)">
     <div id="progressTrack" class="progress-track">
       <div id="progressFill" class="progress-fill"></div>
@@ -493,11 +490,9 @@
     </div>
   </div>
 
-  <!-- القوائم والسجل -->
   <section>
     <div class="folder-nav">
       <div id="foldersContainer" style="display:flex; gap:6px;"></div>
-      
       <div class="folder-tools">
         <button onclick="openCreateFolderModal()" class="tool-btn" title="قائمة جديدة">
           <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
@@ -510,68 +505,21 @@
         </button>
       </div>
     </div>
-
     <div id="playlistContainer" class="playlist-scroll"></div>
   </section>
 
-  <!-- درج الإعدادات -->
-  <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer(event)">
-    <div class="drawer-card" onclick="event.stopPropagation()">
-      <div class="drawer-header">
-        <span>الإعدادات</span>
-        <button onclick="closeDrawer()" class="btn-action" style="padding:0">✕</button>
-      </div>
-
-      <div class="drawer-item" onclick="openApiKeyModal()">
-        <span>مفتاح YouTube API</span>
-        <span id="apiKeyStatus" style="font-size:11px; color:#666;">لم يحدد</span>
-      </div>
-
-      <div class="drawer-item" onclick="exportData()">
-        <span>تصدير القوائم (JSON)</span>
-        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-      </div>
-
-      <div class="drawer-item" onclick="triggerImport()">
-        <span>استيراد القوائم (JSON)</span>
-        <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
-      </div>
-
-      <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleFileImport(event)">
-
-      <div class="drawer-item danger" onclick="resetAllData()">
-        <span>إعادة تعيين التطبيق</span>
-        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-      </div>
-    </div>
-  </div>
-
-  <!-- المودال المشترك -->
-  <div id="customModal" class="modal-overlay">
-    <div class="modal-card">
-      <h4 id="modalTitle">إجراء</h4>
-      <input id="modalInput" type="text">
-      <div id="modalBody" style="display:none;"></div>
-      <div class="modal-actions">
-        <button onclick="closeModal()" class="btn-dim">إلغاء</button>
-        <button id="modalConfirmBtn" class="btn-action-main" style="padding: 6px 16px; font-size:12px;">تأكيد</button>
-      </div>
-    </div>
-  </div>
-
   <!-- وضع الشاشة السوداء -->
-  <div id="zenOverlay">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <button onclick="openSleepTimerModal()" class="btn-action" style="font-size:12px; background:#111; border-radius:999px; padding:6px 14px;">
+  <div id="zenOverlay" onclick="resetZenIdle()">
+    <div class="zen-header" style="display:flex; justify-content:space-between; align-items:center;">
+      <button onclick="openSleepTimerModal(); event.stopPropagation();" class="btn-action" style="font-size:12px; background:#111; border-radius:999px; padding:6px 14px;">
         <span id="zenSleepLabel">⏱ المؤقت: متوقف</span>
       </button>
-      <button onclick="disableZenMode()" class="btn-action" style="font-size:12px; background:#111; border-radius:999px; padding:6px 14px;">
+      <button onclick="disableZenMode(); event.stopPropagation();" class="btn-action" style="font-size:12px; background:#111; border-radius:999px; padding:6px 14px;">
         ✕ خروج
       </button>
     </div>
 
-    <div class="zen-controls">
-      <!-- شريط زمني تفاعلي داخل الشاشة السوداء -->
+    <div class="zen-controls" onclick="event.stopPropagation()">
       <div class="progress-bar-wrap" style="width: 85%; padding:0;" onclick="seekByClick(event)">
         <div id="zenProgressTrack" class="progress-track">
           <div id="zenProgressFill" class="progress-fill"></div>
@@ -613,26 +561,83 @@
       </div>
     </div>
 
-    <div style="text-align:center; font-size:10px; color:#222;">Zen Ambient</div>
+    <div style="text-align:center; font-size:10px; color:#181818;">Zen Pure Black</div>
+  </div>
+
+  <!-- درج الإعدادات والمودال -->
+  <div id="drawerOverlay" class="drawer-overlay" onclick="closeDrawer(event)">
+    <div class="drawer-card" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <span>الإعدادات</span>
+        <button onclick="closeDrawer()" class="btn-action" style="padding:0">✕</button>
+      </div>
+      <div class="drawer-item" onclick="openApiKeyModal()">
+        <span>مفتاح YouTube API</span>
+        <span id="apiKeyStatus" style="font-size:11px; color:#666;">لم يحدد</span>
+      </div>
+      <div class="drawer-item" onclick="exportData()">
+        <span>تصدير القوائم (JSON)</span>
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      </div>
+      <div class="drawer-item" onclick="triggerImport()">
+        <span>استيراد القوائم (JSON)</span>
+        <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+      </div>
+      <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="handleFileImport(event)">
+      <div class="drawer-item danger" onclick="resetAllData()">
+        <span>إعادة تعيين التطبيق</span>
+        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div id="customModal" class="modal-overlay">
+    <div class="modal-card">
+      <h4 id="modalTitle">إجراء</h4>
+      <input id="modalInput" type="text">
+      <div id="modalBody" style="display:none;"></div>
+      <div class="modal-actions">
+        <button onclick="closeModal()" class="btn-dim">إلغاء</button>
+        <button id="modalConfirmBtn" class="btn-action-main" style="padding: 6px 16px; font-size:12px;">تأكيد</button>
+      </div>
+    </div>
   </div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
     let player;
-    let dataStore = JSON.parse(localStorage.getItem('MyTube_store') || '{"folders":["الافتراضية"],"activeFolder":"الافتراضية","items":[],"history":[]}');
+    let dataStore = JSON.parse(localStorage.getItem('myyoutube_store') || '{"folders":["الافتراضية"],"activeFolder":"الافتراضية","items":[],"history":[]}');
     if (!dataStore.history) dataStore.history = [];
-    let userApiKey = localStorage.getItem('MyTube_apikey') || '';
+    let userApiKey = localStorage.getItem('myyoutube_apikey') || '';
     let currentIndex = 0;
     let wakeLock = null;
     let progressInterval = null;
-
     let sleepTimerTimeout = null;
     let sleepTimerMode = 'off';
 
-    function parseYouTubeUrl(url) {
+    // مؤقت خمول الشاشة السوداء (Auto-fade)
+    let zenIdleTimer = null;
+
+    function resetZenIdle() {
+      const overlay = document.getElementById('zenOverlay');
+      overlay.classList.remove('idle');
+      if (zenIdleTimer) clearTimeout(zenIdleTimer);
+      // بعد 4 ثوانٍ دون لمس، تختفي الأزرار ويصبح السواد 100%
+      zenIdleTimer = setTimeout(() => {
+        overlay.classList.add('idle');
+      }, 4000);
+    }
+
+    // استخراج دقيق للروابط الواردة من تطبيق يوتيوب
+    function parseYouTubeUrl(rawText) {
+      if (!rawText) return { listId: null, videoId: null };
+      const urlMatch = rawText.match(/https?:\/\/[^\s]+/);
+      const url = urlMatch ? urlMatch[0] : rawText;
+
       const listMatch = url.match(/[?&]list=([^#&]+)/);
       const videoMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+
       return {
         listId: listMatch ? listMatch[1] : null,
         videoId: videoMatch ? videoMatch[1] : null
@@ -660,6 +665,7 @@
             renderItems();
             updateApiKeyLabel();
             startProgressLoop();
+            checkSharedIntent();
             if (items[0]) {
               document.getElementById('nowPlayingText').innerText = items[0].title;
             }
@@ -691,7 +697,6 @@
       }
     }
 
-    // تحديث شريط التقدم بنعومة
     function startProgressLoop() {
       if (progressInterval) clearInterval(progressInterval);
       progressInterval = setInterval(() => {
@@ -718,7 +723,6 @@
       }, 500);
     }
 
-    // النقر للتقديم والتأخير
     function seekByClick(e) {
       const track = e.currentTarget.querySelector('.progress-track');
       if (!player || !player.getDuration || !track) return;
@@ -750,9 +754,7 @@
     }
 
     function getActiveFolderItems() {
-      if (dataStore.activeFolder === '__history__') {
-        return dataStore.history || [];
-      }
+      if (dataStore.activeFolder === '__history__') return dataStore.history || [];
       return dataStore.items.filter(item => item.folder === dataStore.activeFolder);
     }
 
@@ -769,141 +771,26 @@
       if (dataStore.activeFolder === '__history__') renderItems();
     }
 
-    // إدارة مؤقت النوم
-    function openSleepTimerModal() {
-      modalTitle.innerText = "مؤقت النوم التلقائي";
-      modalInput.style.display = "none";
-      const body = document.getElementById('modalBody');
-      body.style.display = "block";
-      
-      body.innerHTML = `
-        <div class="sleep-options">
-          <button class="btn-sleep-opt ${sleepTimerMode === 'off' ? 'active' : ''}" onclick="applySleepTimer('off')">إيقاف</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 'end' ? 'active' : ''}" onclick="applySleepTimer('end')">نهاية المقطع</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 15 ? 'active' : ''}" onclick="applySleepTimer(15)">15 دقيقة</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 30 ? 'active' : ''}" onclick="applySleepTimer(30)">30 دقيقة</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 45 ? 'active' : ''}" onclick="applySleepTimer(45)">45 دقيقة</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 60 ? 'active' : ''}" onclick="applySleepTimer(60)">60 دقيقة</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 90 ? 'active' : ''}" onclick="applySleepTimer(90)">90 دقيقة</button>
-          <button class="btn-sleep-opt ${sleepTimerMode === 120 ? 'active' : ''}" onclick="applySleepTimer(120)">120 دقيقة (ساعتان)</button>
-        </div>
-      `;
-
-      modalConfirmBtn.style.display = "none";
-      modal.style.display = "flex";
-    }
-
-    function applySleepTimer(mode) {
-      sleepTimerMode = mode;
-      if (sleepTimerTimeout) clearTimeout(sleepTimerTimeout);
-
-      const zenLabel = document.getElementById('zenSleepLabel');
-      const mainLabel = document.getElementById('mainTimerLabel');
-      const mainBtn = document.getElementById('mainTimerBtn');
-
-      if (mode === 'off') {
-        zenLabel.innerText = '⏱ المؤقت: متوقف';
-        mainLabel.innerText = 'مؤقت';
-        mainBtn.classList.remove('active');
-      } else if (mode === 'end') {
-        zenLabel.innerText = '⏱ المؤقت: نهاية المقطع';
-        mainLabel.innerText = 'نهاية المقطع';
-        mainBtn.classList.add('active');
-      } else {
-        zenLabel.innerText = `⏱ المؤقت: ${mode} دقيقة`;
-        mainLabel.innerText = `${mode} د`;
-        mainBtn.classList.add('active');
-        sleepTimerTimeout = setTimeout(() => {
-          stopPlaybackByTimer();
-        }, mode * 60 * 1000);
+    // استلام الرابط المشترك وبدء تشغيله مباشرة
+    function checkSharedIntent() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedContent = urlParams.get('url') || urlParams.get('text');
+      if (sharedContent) {
+        document.getElementById('urlInput').value = sharedContent;
+        handleIncomingUrl(true); // تشغيل فوري
+        window.history.replaceState({}, document.title, window.location.pathname);
       }
-
-      closeModal();
     }
 
-    function stopPlaybackByTimer() {
-      if (player && player.pauseVideo) player.pauseVideo();
-      disableZenMode();
-      alert('انتهى وقت النوم المحدد، تم إيقاف التشغيل.');
-      applySleepTimer('off');
-    }
-
-    // دوال YouTube API
-    async function fetchPlaylistTitle(playlistId) {
-      if (!userApiKey) return "سلسلة جديدة";
-      try {
-        const url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${userApiKey}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.items && data.items.length > 0) return data.items[0].snippet.title;
-      } catch (e) {}
-      return "سلسلة جديدة";
-    }
-
-    async function fetchAllPlaylistVideos(playlistId, folderName) {
-      let videos = [];
-      let nextPageToken = '';
-      if (!userApiKey) {
-        alert('يرجى حفظ مفتاح YouTube API من قائمة الإعدادات لسحب السلسلة.');
-        return videos;
-      }
-
-      try {
-        do {
-          const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&pageToken=${nextPageToken}&key=${userApiKey}`;
-          const res = await fetch(url);
-          const data = await res.json();
-
-          if (data.items) {
-            data.items.forEach(item => {
-              const videoId = item.snippet.resourceId.videoId;
-              const title = item.snippet.title;
-              if (videoId && title !== 'Private video' && title !== 'Deleted video') {
-                videos.push({ id: videoId, title: title, folder: folderName });
-              }
-            });
-          }
-          nextPageToken = data.nextPageToken || '';
-        } while (nextPageToken);
-      } catch (err) {}
-      return videos;
-    }
-
-    async function fetchSingleVideoTitle(videoId) {
-      if (!userApiKey) {
-        try {
-          const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.title) return data.title;
-          }
-        } catch (e) {}
-        return "مقطع فيديو";
-      }
-
-      try {
-        const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${userApiKey}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.items && data.items.length > 0) return data.items[0].snippet.title;
-      } catch (e) {}
-      return "مقطع فيديو";
-    }
-
-    async function handleIncomingUrl(isInstantPlay = false) {
+    async function handleIncomingUrl(autoPlay = true) {
       const input = document.getElementById('urlInput');
       const addBtn = document.getElementById('addBtn');
-      const url = input.value.trim();
-      const parsed = parseYouTubeUrl(url);
+      const text = input.value.trim();
+      const parsed = parseYouTubeUrl(text);
 
       if (!parsed.listId && !parsed.videoId) {
         alert('الرجاء إدخال رابط يوتيوب صحيح');
         return;
-      }
-
-      if (isInstantPlay && player && player.getPlayerState() === YT.PlayerState.PLAYING) {
-        const confirmSwitch = confirm('يوجد مقطع قيد التشغيل حالياً، هل تريد إيقافه وتشغيل المقطع المشترك فوراً؟');
-        if (!confirmSwitch) return;
       }
 
       addBtn.innerText = '...';
@@ -921,7 +808,7 @@
           saveData();
           renderFolders();
           renderItems();
-          if (videos.length > 0) loadItem(0, true);
+          if (videos.length > 0 && autoPlay) loadItem(0, true);
           input.value = '';
           return;
         }
@@ -939,7 +826,7 @@
         input.value = '';
         renderFolders();
         renderItems();
-        loadItem(getActiveFolderItems().length - 1, true);
+        if (autoPlay) loadItem(getActiveFolderItems().length - 1, true);
 
       } catch (err) {
       } finally {
@@ -1043,9 +930,189 @@
     }
 
     function saveData() {
-      localStorage.setItem('MyTube_store', JSON.stringify(dataStore));
+      localStorage.setItem('myyoutube_store', JSON.stringify(dataStore));
     }
 
+    // مؤقت النوم
+    function openSleepTimerModal() {
+      modalTitle.innerText = "مؤقت النوم التلقائي";
+      modalInput.style.display = "none";
+      const body = document.getElementById('modalBody');
+      body.style.display = "block";
+      
+      body.innerHTML = `
+        <div class="sleep-options">
+          <button class="btn-sleep-opt ${sleepTimerMode === 'off' ? 'active' : ''}" onclick="applySleepTimer('off')">إيقاف</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 'end' ? 'active' : ''}" onclick="applySleepTimer('end')">نهاية المقطع</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 15 ? 'active' : ''}" onclick="applySleepTimer(15)">15 دقيقة</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 30 ? 'active' : ''}" onclick="applySleepTimer(30)">30 دقيقة</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 45 ? 'active' : ''}" onclick="applySleepTimer(45)">45 دقيقة</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 60 ? 'active' : ''}" onclick="applySleepTimer(60)">60 دقيقة</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 90 ? 'active' : ''}" onclick="applySleepTimer(90)">90 دقيقة</button>
+          <button class="btn-sleep-opt ${sleepTimerMode === 120 ? 'active' : ''}" onclick="applySleepTimer(120)">120 دقيقة (ساعتان)</button>
+        </div>
+      `;
+
+      modalConfirmBtn.style.display = "none";
+      modal.style.display = "flex";
+    }
+
+    function applySleepTimer(mode) {
+      sleepTimerMode = mode;
+      if (sleepTimerTimeout) clearTimeout(sleepTimerTimeout);
+
+      const zenLabel = document.getElementById('zenSleepLabel');
+      const mainLabel = document.getElementById('mainTimerLabel');
+      const mainBtn = document.getElementById('mainTimerBtn');
+
+      if (mode === 'off') {
+        zenLabel.innerText = '⏱ المؤقت: متوقف';
+        mainLabel.innerText = 'مؤقت';
+        mainBtn.classList.remove('active');
+      } else if (mode === 'end') {
+        zenLabel.innerText = '⏱ المؤقت: نهاية المقطع';
+        mainLabel.innerText = 'نهاية المقطع';
+        mainBtn.classList.add('active');
+      } else {
+        zenLabel.innerText = `⏱ المؤقت: ${mode} دقيقة`;
+        mainLabel.innerText = `${mode} د`;
+        mainBtn.classList.add('active');
+        sleepTimerTimeout = setTimeout(() => {
+          stopPlaybackByTimer();
+        }, mode * 60 * 1000);
+      }
+
+      closeModal();
+    }
+
+    function stopPlaybackByTimer() {
+      if (player && player.pauseVideo) player.pauseVideo();
+      disableZenMode();
+      applySleepTimer('off');
+    }
+
+    // دوال API
+    async function fetchPlaylistTitle(playlistId) {
+      if (!userApiKey) return "سلسلة جديدة";
+      try {
+        const url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${userApiKey}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.items && data.items.length > 0) return data.items[0].snippet.title;
+      } catch (e) {}
+      return "سلسلة جديدة";
+    }
+
+    async function fetchAllPlaylistVideos(playlistId, folderName) {
+      let videos = [];
+      let nextPageToken = '';
+      if (!userApiKey) {
+        alert('يرجى حفظ مفتاح YouTube API من قائمة الإعدادات لسحب السلسلة.');
+        return videos;
+      }
+
+      try {
+        do {
+          const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&pageToken=${nextPageToken}&key=${userApiKey}`;
+          const res = await fetch(url);
+          const data = await res.json();
+
+          if (data.items) {
+            data.items.forEach(item => {
+              const videoId = item.snippet.resourceId.videoId;
+              const title = item.snippet.title;
+              if (videoId && title !== 'Private video' && title !== 'Deleted video') {
+                videos.push({ id: videoId, title: title, folder: folderName });
+              }
+            });
+          }
+          nextPageToken = data.nextPageToken || '';
+        } while (nextPageToken);
+      } catch (err) {}
+      return videos;
+    }
+
+    async function fetchSingleVideoTitle(videoId) {
+      if (!userApiKey) {
+        try {
+          const res = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.title) return data.title;
+          }
+        } catch (e) {}
+        return "مقطع فيديو";
+      }
+
+      try {
+        const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${userApiKey}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.items && data.items.length > 0) return data.items[0].snippet.title;
+      } catch (e) {}
+      return "مقطع فيديو";
+    }
+
+    // إعدادات الشاشة السوداء
+    async function enableZenMode() {
+      const overlay = document.getElementById('zenOverlay');
+      overlay.style.display = 'flex';
+      resetZenIdle();
+
+      const docEl = document.documentElement;
+      if (docEl.requestFullscreen) docEl.requestFullscreen().catch(() => {});
+      try {
+        if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen');
+      } catch (err) {}
+    }
+
+    function disableZenMode() {
+      const overlay = document.getElementById('zenOverlay');
+      overlay.style.display = 'none';
+      overlay.classList.remove('idle');
+      if (zenIdleTimer) clearTimeout(zenIdleTimer);
+
+      if (document.exitFullscreen && document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+      if (wakeLock) wakeLock.release().then(() => wakeLock = null);
+    }
+
+    // أدوات التشغيل
+    function togglePlay() {
+      if (!player) return;
+      const state = player.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    }
+
+    function seekRelative(seconds) {
+      if (!player) return;
+      player.seekTo(player.getCurrentTime() + seconds, true);
+    }
+
+    function setSpeed(rate) {
+      if (player && player.setPlaybackRate) {
+        player.setPlaybackRate(rate);
+        document.querySelectorAll('.zen-speeds button').forEach(b => b.classList.remove('active'));
+        const btn = document.getElementById(`spd-${rate}`);
+        if (btn) btn.classList.add('active');
+      }
+    }
+
+    function playNext() {
+      const items = getActiveFolderItems();
+      if (currentIndex + 1 < items.length) loadItem(currentIndex + 1, true);
+    }
+
+    function playPrev() {
+      if (currentIndex - 1 >= 0) loadItem(currentIndex - 1, true);
+    }
+
+    // الإعدادات والمودال
     function openDrawer() {
       document.getElementById('drawerOverlay').style.display = 'flex';
       updateApiKeyLabel();
@@ -1081,7 +1148,7 @@
 
       modalConfirmBtn.onclick = () => {
         userApiKey = modalInput.value.trim();
-        localStorage.setItem('MyTube_apikey', userApiKey);
+        localStorage.setItem('myyoutube_apikey', userApiKey);
         closeModal();
       };
     }
@@ -1092,15 +1159,13 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `MyTube_backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `mytube_backup_${new Date().toISOString().slice(0,10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
       closeDrawer();
     }
 
-    function triggerImport() {
-      document.getElementById('importFileInput').click();
-    }
+    function triggerImport() { document.getElementById('importFileInput').click(); }
 
     function handleFileImport(event) {
       const file = event.target.files[0];
@@ -1118,12 +1183,8 @@
             renderItems();
             alert('تم استيراد القوائم بنجاح!');
             closeDrawer();
-          } else {
-            alert('صيغة الملف غير صالحة.');
           }
-        } catch (err) {
-          alert('تعذر قراءة ملف الـ JSON.');
-        }
+        } catch (err) {}
       };
       reader.readAsText(file);
     }
@@ -1226,75 +1287,7 @@
       };
     }
 
-    function closeModal() {
-      modal.style.display = "none";
-    }
-
-    function togglePlay() {
-      if (!player) return;
-      const state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        player.pauseVideo();
-      } else {
-        player.playVideo();
-      }
-    }
-
-    function seekRelative(seconds) {
-      if (!player) return;
-      player.seekTo(player.getCurrentTime() + seconds, true);
-    }
-
-    function setSpeed(rate) {
-      if (player && player.setPlaybackRate) {
-        player.setPlaybackRate(rate);
-        document.querySelectorAll('.zen-speeds button').forEach(b => b.classList.remove('active'));
-        const btn = document.getElementById(`spd-${rate}`);
-        if (btn) btn.classList.add('active');
-      }
-    }
-
-    function playNext() {
-      const items = getActiveFolderItems();
-      if (currentIndex + 1 < items.length) {
-        loadItem(currentIndex + 1, true);
-      }
-    }
-
-    function playPrev() {
-      if (currentIndex - 1 >= 0) {
-        loadItem(currentIndex - 1, true);
-      }
-    }
-
-    async function enableZenMode() {
-      document.getElementById('zenOverlay').style.display = 'flex';
-      const docEl = document.documentElement;
-      if (docEl.requestFullscreen) docEl.requestFullscreen().catch(() => {});
-      try {
-        if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen');
-      } catch (err) {}
-    }
-
-    function disableZenMode() {
-      document.getElementById('zenOverlay').style.display = 'none';
-      if (document.exitFullscreen && document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      }
-      if (wakeLock) wakeLock.release().then(() => wakeLock = null);
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const isPlayAction = urlParams.get('action') === 'play';
-      const sharedContent = urlParams.get('url') || urlParams.get('text');
-      
-      if (sharedContent) {
-        const extracted = sharedContent.match(/https?:\/\/[^\s]+/);
-        document.getElementById('urlInput').value = extracted ? extracted[0] : sharedContent;
-        handleIncomingUrl(isPlayAction);
-      }
-    });
+    function closeModal() { modal.style.display = "none"; }
 
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
